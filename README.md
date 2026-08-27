@@ -26,7 +26,7 @@ Le manuscrit complet détaille les hypothèses, les modèles, les tests de robus
 
 ## Manuscrit
 
-- [Lire le PDF](article_offre_ferroviaire_dependance_automobile_pdflatex_png.pdf)
+- [Lire l'article au format PDF](https://fgmmai.duckdns.org/files/mobility-dependence-france.pdf)
 - Source Org : `article_offre_ferroviaire_dependance_automobile_pdflatex_png.org`
 - Bibliographie : `references.bib`
 
