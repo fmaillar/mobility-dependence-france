@@ -11,3 +11,17 @@ data/processed/
 *.egg-info/
 dist/
 build/
+
+
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.tex
+*-SAVE-ERROR
