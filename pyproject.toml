@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mobility-dependence-france"
+version = "0.1.0"
+description = "Analyse territoriale de la dépendance automobile et des alternatives de mobilité en France"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "GPL-3.0-only"
+
+authors = [
+  { name = "Florian Maillard" },
+]
+
+keywords = [
+  "mobility",
+  "transport",
+  "car-dependence",
+  "open-data",
+  "data.gouv.fr",
+  "france",
+  "pandas",
+  "data-analysis",
+]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+dependencies = [
+  "pandas",
+]
+
+[project.optional-dependencies]
+dev = [
+  "bandit",
+  "mypy",
+  "pytest",
+  "pytest-cov",
+  "ruff",
+]
+
+[project.urls]
+Repository = "https://github.com/fmaillar/mobility-dependence-france"
+Issues = "https://github.com/fmaillar/mobility-dependence-france/issues"
+
+[tool.setuptools]
+py-modules = []
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
