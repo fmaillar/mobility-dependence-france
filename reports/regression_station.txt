@@ -1,0 +1,97 @@
+=== Présence gare ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.394
+Model:                            OLS   Adj. R-squared:                  0.394
+Method:                 Least Squares   F-statistic:                     1418.
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):               0.00
+Time:                        17:12:27   Log-Likelihood:            -1.0260e+05
+No. Observations:               31203   AIC:                         2.052e+05
+Df Residuals:                   31196   BIC:                         2.053e+05
+Df Model:                           6                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+Intercept                   88.3827      0.044   1989.613      0.000      88.296      88.470
+log_density_centered         1.6515      0.068     24.365      0.000       1.519       1.784
+log_density_centered_sq     -1.6919      0.024    -71.167      0.000      -1.739      -1.645
+z_log_population            -1.7769      0.071    -25.197      0.000      -1.915      -1.639
+z_median_living_standard     0.1370      0.053      2.575      0.010       0.033       0.241
+z_distance_car               0.1005      0.048      2.115      0.034       0.007       0.194
+has_station                 -2.7311      0.184    -14.880      0.000      -3.091      -2.371
+==============================================================================
+Omnibus:                    10972.170   Durbin-Watson:                   1.743
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            74820.019
+Skew:                          -1.526   Prob(JB):                         0.00
+Kurtosis:                       9.945   Cond. No.                         14.5
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+=== Fréquentation gare ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.403
+Model:                            OLS   Adj. R-squared:                  0.403
+Method:                 Least Squares   F-statistic:                     1365.
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):               0.00
+Time:                        17:12:27   Log-Likelihood:            -1.0235e+05
+No. Observations:               31203   AIC:                         2.047e+05
+Df Residuals:                   31195   BIC:                         2.048e+05
+Df Model:                           7                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+Intercept                   88.2668      0.045   1945.095      0.000      88.178      88.356
+log_density_centered         1.6803      0.067     25.071      0.000       1.549       1.812
+log_density_centered_sq     -1.5957      0.026    -61.122      0.000      -1.647      -1.545
+z_log_population            -1.6669      0.070    -23.813      0.000      -1.804      -1.530
+z_median_living_standard     0.1241      0.053      2.355      0.019       0.021       0.227
+z_distance_car               0.1440      0.047      3.038      0.002       0.051       0.237
+has_station                 11.5150      0.832     13.838      0.000       9.884      13.146
+log_station_passengers      -1.3311      0.080    -16.672      0.000      -1.488      -1.175
+==============================================================================
+Omnibus:                    11352.253   Durbin-Watson:                   1.751
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            80100.886
+Skew:                          -1.576   Prob(JB):                         0.00
+Kurtosis:                      10.188   Cond. No.                         72.7
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+=== Fréquentation par habitant ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.410
+Model:                            OLS   Adj. R-squared:                  0.410
+Method:                 Least Squares   F-statistic:                     1469.
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):               0.00
+Time:                        17:12:27   Log-Likelihood:            -1.0218e+05
+No. Observations:               31203   AIC:                         2.044e+05
+Df Residuals:                   31195   BIC:                         2.044e+05
+Df Model:                           7                                         
+Covariance Type:                  HC3                                         
+=====================================================================================================
+                                        coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------
+Intercept                            88.2856      0.044   2000.226      0.000      88.199      88.372
+log_density_centered                  1.7203      0.067     25.643      0.000       1.589       1.852
+log_density_centered_sq              -1.6218      0.024    -67.425      0.000      -1.669      -1.575
+z_log_population                     -1.8404      0.070    -26.386      0.000      -1.977      -1.704
+z_median_living_standard              0.1715      0.052      3.288      0.001       0.069       0.274
+z_distance_car                        0.1683      0.047      3.550      0.000       0.075       0.261
+has_station                           5.5372      0.335     16.510      0.000       4.880       6.194
+log_station_passengers_per_capita    -2.8371      0.115    -24.569      0.000      -3.063      -2.611
+==============================================================================
+Omnibus:                    11332.475   Durbin-Watson:                   1.765
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            81051.330
+Skew:                          -1.568   Prob(JB):                         0.00
+Kurtosis:                      10.246   Cond. No.                         31.9
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)

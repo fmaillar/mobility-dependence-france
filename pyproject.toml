@@ -38,12 +38,15 @@ classifiers = [
 
 dependencies = [
   "pandas",
+  "statsmodels",
+  "matplotlib",
 ]
 
 [project.optional-dependencies]
 dev = [
   "bandit",
   "mypy",
+  "pandas-stubs",
   "pytest",
   "pytest-cov",
   "ruff",
@@ -54,14 +57,24 @@ Repository = "https://github.com/fmaillar/mobility-dependence-france"
 Issues = "https://github.com/fmaillar/mobility-dependence-france/issues"
 
 [tool.setuptools]
-py-modules = []
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.ruff]
 line-length = 100
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.13"
 strict = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[[tool.mypy.overrides]]
+module = [
+  "statsmodels",
+  "statsmodels.*",
+]
+ignore_missing_imports = true

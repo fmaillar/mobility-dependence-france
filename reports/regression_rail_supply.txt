@@ -1,0 +1,163 @@
+=== Offre ferroviaire 2022 ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.389
+Model:                            OLS   Adj. R-squared:                  0.389
+Method:                 Least Squares   F-statistic:                     1197.
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):               0.00
+Time:                        17:12:27   Log-Likelihood:            -1.0272e+05
+No. Observations:               31203   AIC:                         2.055e+05
+Df Residuals:                   31195   BIC:                         2.055e+05
+Df Model:                           7                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+Intercept                   88.2912      0.045   1957.990      0.000      88.203      88.380
+log_density_centered         1.6245      0.068     23.949      0.000       1.492       1.757
+log_density_centered_sq     -1.7131      0.024    -70.765      0.000      -1.761      -1.666
+z_log_population            -1.9039      0.071    -26.693      0.000      -2.044      -1.764
+z_median_living_standard     0.1673      0.053      3.129      0.002       0.063       0.272
+z_distance_car               0.0801      0.048      1.681      0.093      -0.013       0.174
+has_rail_service_2022        0.0041      0.591      0.007      0.995      -1.154       1.162
+log_rail_stops_2022         -0.4120      0.196     -2.100      0.036      -0.796      -0.027
+==============================================================================
+Omnibus:                    10962.722   Durbin-Watson:                   1.736
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            73981.373
+Skew:                          -1.527   Prob(JB):                         0.00
+Kurtosis:                       9.897   Cond. No.                         48.7
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+=== Communes desservies ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.473
+Model:                            OLS   Adj. R-squared:                  0.471
+Method:                 Least Squares   F-statistic:                     255.5
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):          1.12e-246
+Time:                        17:12:27   Log-Likelihood:                -7264.8
+No. Observations:                2144   AIC:                         1.454e+04
+Df Residuals:                    2137   BIC:                         1.458e+04
+Df Model:                           6                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+Intercept                   90.6932      0.680    133.426      0.000      89.361      92.025
+log_density_centered         2.6091      0.375      6.950      0.000       1.873       3.345
+log_density_centered_sq     -1.4102      0.099    -14.297      0.000      -1.604      -1.217
+z_log_population            -2.2944      0.296     -7.744      0.000      -2.875      -1.714
+z_median_living_standard     0.3397      0.237      1.435      0.151      -0.124       0.804
+z_distance_car               0.2578      0.286      0.900      0.368      -0.304       0.819
+log_rail_stops_2022         -1.7764      0.279     -6.359      0.000      -2.324      -1.229
+==============================================================================
+Omnibus:                      694.107   Durbin-Watson:                   1.556
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             3163.804
+Skew:                          -1.487   Prob(JB):                         0.00
+Kurtosis:                       8.155   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+=== Communes desservies — sans distance_car ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.473
+Model:                            OLS   Adj. R-squared:                  0.471
+Method:                 Least Squares   F-statistic:                     303.3
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):          9.89e-246
+Time:                        17:12:27   Log-Likelihood:                -7265.5
+No. Observations:                2144   AIC:                         1.454e+04
+Df Residuals:                    2138   BIC:                         1.458e+04
+Df Model:                           5                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+Intercept                   90.6409      0.668    135.674      0.000      89.331      91.950
+log_density_centered         2.5994      0.375      6.934      0.000       1.865       3.334
+log_density_centered_sq     -1.4172      0.099    -14.321      0.000      -1.611      -1.223
+z_log_population            -2.3631      0.276     -8.568      0.000      -2.904      -1.823
+z_median_living_standard     0.3548      0.236      1.502      0.133      -0.108       0.818
+log_rail_stops_2022         -1.7440      0.268     -6.517      0.000      -2.268      -1.219
+==============================================================================
+Omnibus:                      701.621   Durbin-Watson:                   1.562
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             3257.831
+Skew:                          -1.498   Prob(JB):                         0.00
+Kurtosis:                       8.243   Cond. No.                         27.2
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+=== Communes desservies — contrôle AAV ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.519
+Model:                            OLS   Adj. R-squared:                  0.517
+Method:                 Least Squares   F-statistic:                     216.2
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):          1.43e-292
+Time:                        17:12:27   Log-Likelihood:                -7165.9
+No. Observations:                2144   AIC:                         1.435e+04
+Df Residuals:                    2134   BIC:                         1.441e+04
+Df Model:                           9                                         
+Covariance Type:                  HC3                                         
+========================================================================================================
+                                           coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------------------
+Intercept                               85.1531      0.794    107.187      0.000      83.596      86.710
+C(categorie_aire_attraction)[T.12.0]     4.7147      0.790      5.967      0.000       3.166       6.263
+C(categorie_aire_attraction)[T.13.0]     3.7653      3.102      1.214      0.225      -2.315       9.845
+C(categorie_aire_attraction)[T.20.0]     6.1292      0.525     11.668      0.000       5.100       7.159
+C(categorie_aire_attraction)[T.30.0]     1.7348      0.712      2.438      0.015       0.340       3.130
+log_density_centered                     2.0426      0.355      5.758      0.000       1.347       2.738
+log_density_centered_sq                 -1.3587      0.100    -13.643      0.000      -1.554      -1.164
+z_log_population                        -1.2072      0.283     -4.268      0.000      -1.762      -0.653
+z_median_living_standard                -0.5554      0.238     -2.329      0.020      -1.023      -0.088
+log_rail_stops_2022                     -1.7870      0.268     -6.677      0.000      -2.312      -1.262
+==============================================================================
+Omnibus:                      777.988   Durbin-Watson:                   1.518
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             4427.976
+Skew:                          -1.606   Prob(JB):                         0.00
+Kurtosis:                       9.265   Cond. No.                         92.7
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+=== Communes desservies — quartiles ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              share_car   R-squared:                       0.465
+Model:                            OLS   Adj. R-squared:                  0.463
+Method:                 Least Squares   F-statistic:                     196.1
+Date:                Thu, 27 Aug 2026   Prob (F-statistic):          6.40e-225
+Time:                        17:12:27   Log-Likelihood:                -7280.9
+No. Observations:                2144   AIC:                         1.458e+04
+Df Residuals:                    2136   BIC:                         1.462e+04
+Df Model:                           7                                         
+Covariance Type:                  HC3                                         
+=================================================================================================
+                                    coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------------------------
+Intercept                        86.8894      0.324    268.330      0.000      86.255      87.524
+C(rail_supply_quartile)[T.Q2]    -0.3909      0.440     -0.888      0.375      -1.254       0.472
+C(rail_supply_quartile)[T.Q3]    -1.3683      0.462     -2.964      0.003      -2.273      -0.463
+C(rail_supply_quartile)[T.Q4]    -2.7727      0.587     -4.723      0.000      -3.923      -1.622
+log_density_centered              2.6029      0.391      6.649      0.000       1.836       3.370
+log_density_centered_sq          -1.4408      0.103    -13.969      0.000      -1.643      -1.239
+z_log_population                 -2.6498      0.283     -9.357      0.000      -3.205      -2.095
+z_median_living_standard          0.2884      0.239      1.207      0.227      -0.180       0.757
+==============================================================================
+Omnibus:                      679.257   Durbin-Watson:                   1.571
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             3072.124
+Skew:                          -1.455   Prob(JB):                         0.00
+Kurtosis:                       8.092   Cond. No.                         29.4
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
