@@ -4,14 +4,20 @@
 #+DATE: 2026
 #+bibliography: references.bib
 #+cite_export: biblatex
+#+LATEX_COMPILER: pdflatex
 #+LANGUAGE: fr
-#+OPTIONS: toc:2 num:t
+#+LATEX_CLASS_OPTIONS: [a4paper,11pt]
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage[french]{babel}
+#+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
+#+OPTIONS: toc:nil num:t
 #+STARTUP: overview
 #+PROPERTY: repository https://github.com/fmaillar/mobility-dependence-france
 #+PROPERTY: header-args :eval never-export
 
-* Résumé
-
+#+begin_export latex
+\begin{abstract}
 Cette étude examine l'association entre l'intensité de l'offre ferroviaire et la part modale automobile dans les communes françaises en 2022. L'analyse combine des données ouvertes relatives aux modes de déplacement domicile-travail, aux caractéristiques socio-démographiques des communes, au zonage en aires d'attraction des villes (AAV) et à la desserte ferroviaire issue de Géofer, plateforme développée par le Cerema.
 
 L'analyse principale est restreinte aux 2 144 communes disposant d'une desserte ferroviaire effective en 2022 et pour lesquelles l'ensemble des variables de contrôle est disponible. L'offre ferroviaire est mesurée par le nombre moyen d'arrêts ferroviaires observés un jour de semaine, agrégé au niveau communal et transformé logarithmiquement. Après contrôle de la densité de population, de la taille de la commune, du niveau de vie médian et de la position dans l'aire d'attraction des villes, une offre ferroviaire plus importante est associée à une part modale automobile plus faible. Le coefficient estimé pour le logarithme du nombre d'arrêts ferroviaires est de -1,787 (IC95 % : [-2,312 ; -1,262], p < 0,001) avec des erreurs-types robustes HC3.
@@ -19,12 +25,17 @@ L'analyse principale est restreinte aux 2 144 communes disposant d'une desserte 
 L'inférence reste robuste lorsque les erreurs-types sont clusterisées par département : le coefficient demeure -1,787, avec un intervalle de confiance à 95 % de [-2,725 ; -0,849]. Dans cette spécification, un doublement de l'offre ferroviaire est associé à une diminution d'environ 1,24 point de pourcentage de la part modale automobile. L'analyse par quartiles indique en outre que l'association est surtout marquée aux niveaux élevés de desserte : relativement au premier quartile, le quatrième quartile présente une part automobile ajustée inférieure de 2,77 points.
 
 Ces résultats fournissent une preuve statistique robuste d'association entre intensité de desserte ferroviaire et moindre dépendance automobile. Ils ne constituent toutefois pas une preuve causale : l'offre ferroviaire peut rester corrélée à des caractéristiques territoriales non observées qui influencent également les comportements de mobilité.
+\end{abstract}
+#+end_export
 
 * Mots-clés
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
 
 mobilité ; ferroviaire ; automobile ; part modale ; communes ; transport ; accessibilité ; open data ; France ; Géofer
 
-* 1. Introduction
+* Introduction
 
 La dépendance automobile résulte à la fois de comportements individuels et de contraintes structurelles liées à l'organisation des territoires. La littérature a notamment mis en évidence le rôle de la densité, de la diversité des fonctions urbaines et de la forme bâtie dans les comportements de déplacement [cite:@newman1989gasoline;@newman1989cities;@cervero1997threeDs;@ewing2010built]. Dans les espaces où les emplois, les services et les équipements sont éloignés des lieux de résidence, ou lorsque les alternatives à la voiture sont rares, l'automobile peut constituer moins un choix qu'une nécessité fonctionnelle.
 
@@ -38,9 +49,9 @@ L'objectif de cette étude est donc de dépasser la simple comparaison entre com
 
 L'analyse repose exclusivement sur des données ouvertes et sur un pipeline reproductible en Python. L'unité statistique est la commune française.
 
-* 2. Données
+* Données
 
-** 2.1. Jeux de données et identifiants
+** Jeux de données et identifiants
 
 L'analyse repose exclusivement sur des jeux de données ouverts diffusés sur data.gouv.fr. Afin de faciliter la reproductibilité, les identifiants des jeux de données utilisés sont indiqués ci-dessous.
 
@@ -68,7 +79,7 @@ L'analyse repose exclusivement sur des jeux de données ouverts diffusés sur da
 Les traitements appliqués à ces sources sont réalisés localement par les scripts du projet ; les jeux de données publiés sur data.gouv.fr ne sont pas modifiés.
 
 
-** 2.2. Part modale automobile
+** Part modale automobile
 
 La variable expliquée est la part des actifs occupés utilisant principalement la voiture pour leurs déplacements domicile-travail en 2022.
 
@@ -78,13 +89,15 @@ L'indicateur est disponible à la maille communale et exprime la part des actifs
 
 La variable utilisée dans l'analyse est notée :
 
+#+begin_export latex
 \[
 Y_i = \mathrm{share\_car}_i
 \]
+#+end_export
 
-où \(i\) désigne une commune.
+où $i$ désigne une commune.
 
-** 2.3. Offre ferroviaire
+** Offre ferroviaire
 
 L'offre ferroviaire provient du jeu de données Géofer du Cerema [cite:@cerema2026geofer].
 
@@ -99,6 +112,7 @@ Pour 2022, les variables disponibles distinguent notamment :
 
 Afin de mesurer uniquement l'offre ferroviaire, l'indicateur principal est défini comme :
 
+#+begin_export latex
 \[
 \mathrm{rail\_stops}_{i,2022}
 =
@@ -108,18 +122,21 @@ Afin de mesurer uniquement l'offre ferroviaire, l'indicateur principal est défi
 +
 \mathrm{Intercites}_{i,2022}
 \]
+#+end_export
 
 Les valeurs sont agrégées par commune.
 
 La distribution étant fortement asymétrique, la variable explicative principale est :
 
+#+begin_export latex
 \[
 X_i = \log(1 + \mathrm{rail\_stops}_{i,2022})
 \]
+#+end_export
 
-L'analyse principale est restreinte aux communes pour lesquelles \(\mathrm{rail\_stops}_{i,2022} > 0\).
+L'analyse principale est restreinte aux communes pour lesquelles $\mathrm{rail\_stops}_{i,2022} > 0$.
 
-** 2.4. Variables de contrôle
+** Variables de contrôle
 
 Les modèles incluent plusieurs caractéristiques communales susceptibles d'être associées simultanément à l'offre ferroviaire et à l'utilisation de la voiture :
 
@@ -130,21 +147,25 @@ Les modèles incluent plusieurs caractéristiques communales susceptibles d'êtr
 
 La densité est introduite sous forme logarithmique avec un terme quadratique afin d'autoriser une relation non linéaire :
 
+#+begin_export latex
 \[
 D_i = \log(\mathrm{densite}_i)
 \]
+#+end_export
 
 et
 
+#+begin_export latex
 \[
 (D_i - \bar{D})^2
 \]
+#+end_export
 
 Le logarithme de la population et le niveau de vie médian sont standardisés.
 
 Le zonage AAV distingue notamment les communes-centres, les autres communes des pôles, les communes des couronnes et les communes hors attraction des pôles. Ce contrôle vise à tenir compte de la position fonctionnelle de la commune dans le système territorial, et notamment des relations domicile-travail avec les pôles d'emploi.
 
-** 2.5. Construction de l'échantillon
+** Construction de l'échantillon
 
 Le fichier communal final contient 34 858 communes et 32 variables après rapprochement des différentes sources.
 
@@ -155,17 +176,18 @@ L'analyse principale consacrée à l'intensité de desserte ferroviaire porte su
 La distribution de l'offre parmi ces communes est fortement asymétrique, ce qui motive l'emploi d'une transformation logarithmique dans les modèles (figure [[fig:rail-supply-distribution]]).
 
 #+NAME: fig:rail-supply-distribution
-#+CAPTION: Distribution de l'intensité de desserte ferroviaire dans les communes effectivement desservies en 2022. L'axe horizontal représente \(\log(1+n)\), où \(n\) est le nombre moyen d'arrêts TER, TGV et Intercités agrégé au niveau communal. La transformation logarithmique réduit l'asymétrie de la distribution tout en conservant l'ordre des niveaux de desserte.
+#+CAPTION: Distribution de l'intensité de desserte ferroviaire dans les communes effectivement desservies en 2022. L'axe horizontal représente $\log(1+n)$, où $n$ est le nombre moyen d'arrêts TER, TGV et Intercités agrégé au niveau communal. La transformation logarithmique réduit l'asymétrie de la distribution tout en conservant l'ordre des niveaux de desserte.
 #+ATTR_LATEX: :width 0.82\textwidth
-[[file:reports/figures/rail_supply_distribution.pdf]]
+[[file:reports/figures/rail_supply_distribution.png]]
 
 
-* 3. Méthode
+* Méthode
 
-** 3.1. Modèle de base
+** Modèle de base
 
 Le modèle est estimé par moindres carrés ordinaires :
 
+#+begin_export latex
 \[
 Y_i =
 \beta_0
@@ -176,20 +198,21 @@ Y_i =
 + \gamma A_i
 + \varepsilon_i
 \]
+#+end_export
 
 où :
 
-- \(Y_i\) est la part modale automobile ;
-- \(X_i\) est le logarithme du nombre d'arrêts ferroviaires ;
-- \(f(D_i)\) est une fonction quadratique du logarithme de la densité ;
-- \(P_i\) est le logarithme standardisé de la population ;
-- \(R_i\) est le niveau de vie médian standardisé ;
-- \(A_i\) représente la catégorie AAV ;
-- \(\varepsilon_i\) est le terme d'erreur.
+- $Y_i$ est la part modale automobile ;
+- $X_i$ est le logarithme du nombre d'arrêts ferroviaires ;
+- $f(D_i)$ est une fonction quadratique du logarithme de la densité ;
+- $P_i$ est le logarithme standardisé de la population ;
+- $R_i$ est le niveau de vie médian standardisé ;
+- $A_i$ représente la catégorie AAV ;
+- $\varepsilon_i$ est le terme d'erreur.
 
 Les erreurs-types sont d'abord calculées avec l'estimateur robuste HC3, afin de limiter la sensibilité de l'inférence à l'hétéroscédasticité [cite:@white1980heteroskedasticity].
 
-** 3.2. Tests de robustesse
+** Tests de robustesse
 
 Plusieurs spécifications sont comparées.
 
@@ -201,71 +224,85 @@ Plusieurs spécifications sont comparées.
 
 Les coefficients doivent être interprétés comme des associations conditionnelles et non comme des effets causaux.
 
-* 4. Résultats
+* Résultats
 
-** 4.1. Présence d'une gare
+** Présence d'une gare
 
 Dans un premier modèle portant sur l'ensemble des communes, la présence d'une gare est associée à une part modale automobile inférieure de 2,73 points, après contrôle des caractéristiques incluses dans la spécification.
 
 Ce résultat montre qu'une différence existe entre communes avec et sans gare, mais ne permet pas de distinguer l'existence de l'infrastructure de l'intensité réelle du service.
 
-** 4.2. Intensité de desserte parmi les communes desservies
+** Intensité de desserte parmi les communes desservies
 
-Sur les 2 144 communes effectivement desservies, le coefficient associé à \(\log(1+\mathrm{rail\_stops})\) est :
+Sur les 2 144 communes effectivement desservies, le coefficient associé à $\log(1+\mathrm{rail\_stops})$ est :
 
+#+begin_export latex
 \[
 \hat{\beta}_1 = -1{,}776
 \]
+#+end_export
 
 avec une erreur-type HC3 de 0,279 et un intervalle de confiance à 95 % de :
 
+#+begin_export latex
 \[
 [-2{,}324 ; -1{,}229]
 \]
+#+end_export
 
-Le coefficient est statistiquement significatif avec \(p < 0{,}001\).
+Le coefficient est statistiquement significatif avec $p < 0{,}001$.
 
-Le modèle explique environ 47,3 % de la variance observée de la part automobile (\(R^2 = 0{,}473\)).
+Le modèle explique environ 47,3 % de la variance observée de la part automobile ($R^2 = 0{,}473$).
 
-** 4.3. Retrait de la distance automobile
+** Retrait de la distance automobile
 
 La distance moyenne des déplacements en voiture peut être problématique comme covariable, car elle est observée conditionnellement au choix de la voiture.
 
 Lorsque cette variable est retirée, le coefficient ferroviaire devient :
 
+#+begin_export latex
 \[
 \hat{\beta}_1 = -1{,}744
 \]
+#+end_export
 
 avec un intervalle de confiance à 95 % :
 
+#+begin_export latex
 \[
 [-2{,}268 ; -1{,}219]
 \]
+#+end_export
 
 Le résultat est donc pratiquement inchangé.
 
-** 4.4. Contrôle de la position dans l'aire d'attraction des villes
+** Contrôle de la position dans l'aire d'attraction des villes
 
 L'ajout de la catégorie AAV améliore sensiblement le pouvoir explicatif du modèle :
 
+#+begin_export latex
 \[
 R^2 = 0{,}519
 \]
+#+end_export
 
 Le coefficient associé à l'offre ferroviaire est alors :
 
+#+begin_export latex
 \[
 \hat{\beta}_1 = -1{,}787
 \]
+#+end_export
 
 avec une erreur-type HC3 de 0,268, un intervalle de confiance à 95 % de :
 
+#+begin_export latex
 \[
 [-2{,}312 ; -1{,}262]
 \]
+#+end_export
 
-et \(p < 0{,}001\).
+et $p < 0{,}001$.
 
 L'ajout de ce contrôle territorial ne réduit donc pas l'association observée entre offre ferroviaire et part automobile.
 
@@ -274,61 +311,69 @@ La figure [[fig:adjusted-rail-effect]] représente cette association ajustée. E
 #+NAME: fig:adjusted-rail-effect
 #+CAPTION: Association ajustée entre intensité de desserte ferroviaire et part modale automobile. La courbe correspond aux prédictions du modèle incluant la densité, la population, le niveau de vie et la catégorie AAV ; la bande indique l'intervalle de confiance à 95 % de la moyenne prédite. L'axe des abscisses est logarithmique. Cette représentation illustre une association conditionnelle et ne doit pas être interprétée comme un effet causal.
 #+ATTR_LATEX: :width 0.82\textwidth
-[[file:reports/figures/adjusted_rail_effect.pdf]]
+[[file:reports/figures/adjusted_rail_effect.png]]
 
 
-** 4.5. Erreurs-types clusterisées par département
+** Erreurs-types clusterisées par département
 
 Pour tenir compte du fait que les communes d'un même département peuvent partager des caractéristiques non observées, les erreurs-types du modèle précédent sont recalculées en autorisant une corrélation arbitraire des résidus au sein de chaque département.
 
 Le coefficient reste nécessairement identique :
 
+#+begin_export latex
 \[
 \hat{\beta}_1 = -1{,}787
 \]
+#+end_export
 
 mais son erreur-type passe de 0,268 à 0,479.
 
 L'intervalle de confiance à 95 % devient :
 
+#+begin_export latex
 \[
 [-2{,}725 ; -0{,}849]
 \]
+#+end_export
 
-Le coefficient demeure statistiquement significatif (\(p < 0{,}001\)).
+Le coefficient demeure statistiquement significatif ($p < 0{,}001$).
 
 Cette spécification constitue le principal test de robustesse de l'inférence statistique retenu dans cette étude.
 
-** 4.6. Interprétation du coefficient logarithmique
+** Interprétation du coefficient logarithmique
 
-Avec une spécification semi-logarithmique, un doublement de l'offre correspond à une variation de \(\ln(2)\) de la variable explicative.
+Avec une spécification semi-logarithmique, un doublement de l'offre correspond à une variation de $\ln(2)$ de la variable explicative.
 
 L'association estimée est donc :
 
+#+begin_export latex
 \[
 -1{,}787 \times \ln(2)
 \simeq -1{,}24
 \]
+#+end_export
 
 Ainsi, dans le modèle contrôlé, un doublement du nombre moyen d'arrêts ferroviaires est associé à environ 1,24 point de pourcentage de part automobile en moins.
 
 À partir de l'intervalle clusterisé, l'intervalle correspondant à un doublement de l'offre est approximativement :
 
+#+begin_export latex
 \[
 [-1{,}89 ; -0{,}59]
 \]
+#+end_export
 
 point de pourcentage.
 
-** 4.7. Analyse par quartiles
+** Analyse par quartiles
 
 L'offre ferroviaire est également répartie en quatre groupes de communes selon le niveau de desserte.
 
 Dans le modèle ajusté, avec le premier quartile comme catégorie de référence :
 
-- deuxième quartile : -0,39 point ; différence non significative (\(p = 0{,}375\)) ;
-- troisième quartile : -1,37 point ; \(p = 0{,}003\) ;
-- quatrième quartile : -2,77 points ; \(p < 0{,}001\).
+- deuxième quartile : -0,39 point ; différence non significative ($p = 0{,}375$) ;
+- troisième quartile : -1,37 point ; $p = 0{,}003$ ;
+- quatrième quartile : -2,77 points ; $p < 0{,}001$.
 
 L'association ne semble donc pas correspondre à une diminution uniforme dès les niveaux les plus faibles de desserte. Elle devient surtout nette lorsque l'offre ferroviaire atteint des niveaux plus élevés.
 
@@ -339,12 +384,12 @@ Cette structure apparaît directement dans la figure [[fig:rail-supply-quartiles
 #+NAME: fig:rail-supply-quartiles
 #+CAPTION: Écarts ajustés de part modale automobile selon le quartile de desserte ferroviaire, relativement au premier quartile (Q1). Les points indiquent les coefficients estimés et les barres leurs intervalles de confiance à 95 %. Q2 ne se distingue pas statistiquement de Q1, tandis que Q3 et surtout Q4 présentent une part automobile significativement plus faible après ajustement.
 #+ATTR_LATEX: :width 0.82\textwidth
-[[file:reports/figures/rail_supply_quartiles_adjusted.pdf]]
+ [[file:reports/figures/rail_supply_quartiles_adjusted.png]]   
 
 
-* 5. Discussion
+* Discussion
 
-** 5.1. Résultat principal
+** Résultat principal
 
 Les différentes spécifications convergent vers le même résultat : parmi les communes disposant effectivement d'une desserte ferroviaire, les communes mieux desservies présentent une part modale automobile plus faible.
 
@@ -362,12 +407,12 @@ La magnitude estimée varie donc très peu lorsque la spécification est modifi�
 La figure [[fig:robustness-coefficients]] synthétise cette stabilité. Le passage d'erreurs-types HC3 à des erreurs-types clusterisées par département élargit l'intervalle de confiance, comme attendu lorsque l'on autorise une dépendance intra-départementale [cite:@cameron2015cluster], mais l'intervalle reste entièrement inférieur à zéro.
 
 #+NAME: fig:robustness-coefficients
-#+CAPTION: Robustesse du coefficient associé à \(\log(1+\mathrm{arrêts\ ferroviaires})\) selon quatre spécifications. Les points représentent les coefficients estimés et les segments les intervalles de confiance à 95 %. Les trois premières spécifications utilisent des erreurs-types HC3 ; la dernière utilise des erreurs-types clusterisées par département. La stabilité du coefficient montre que le résultat principal ne dépend pas du contrôle de la distance automobile ni de l'ajout de la catégorie AAV.
+#+CAPTION: Robustesse du coefficient associé au logarithme de l'offre ferroviaire, selon quatre spécifications. Les points représentent les coefficients estimés et les segments les intervalles de confiance à 95 %. Les trois premières spécifications utilisent des erreurs-types HC3 ; la dernière utilise des erreurs-types clusterisées par département. La stabilité du coefficient montre que le résultat principal ne dépend pas du contrôle de la distance automobile ni de l'ajout de la catégorie AAV.
 #+ATTR_LATEX: :width 0.86\textwidth
-[[file:reports/figures/robustness_coefficients.pdf]]
+[[file:reports/figures/robustness_coefficients.png]]
 
 
-** 5.2. Une relation entre alternative disponible et dépendance automobile
+** Une relation entre alternative disponible et dépendance automobile
 
 Le résultat est compatible avec une interprétation structurelle de la dépendance automobile. Il rejoint plus largement les travaux montrant que les caractéristiques du milieu urbain et l'offre de transport collectif sont associées aux comportements de déplacement [cite:@cervero1997threeDs;@ewing2010built;@taylor2009ridership]. À densité, taille et position territoriale comparables, la qualité de l'alternative ferroviaire est associée au niveau de recours à la voiture.
 
@@ -375,7 +420,7 @@ La présence seule d'une gare apparaît insuffisante pour caractériser cette al
 
 L'analyse par quartiles renforce cette lecture : les différences deviennent surtout significatives dans les communes appartenant aux deux niveaux supérieurs de desserte.
 
-** 5.3. Ce que l'étude ne démontre pas
+** Ce que l'étude ne démontre pas
 
 Cette analyse ne permet pas d'affirmer que l'augmentation de la desserte ferroviaire provoquerait mécaniquement une réduction identique de la part automobile.
 
@@ -390,25 +435,25 @@ Plusieurs mécanismes peuvent générer une corrélation entre offre ferroviaire
 
 Les résultats doivent donc être décrits comme une association robuste conditionnelle aux variables observées.
 
-* 6. Limites
+* Limites
 
-** 6.1. Nature transversale de l'analyse
+** Nature transversale de l'analyse
 
 Le modèle principal compare des communes à une date donnée. Cette approche transversale limite fortement l'identification causale, car elle ne contrôle pas les caractéristiques communales non observées qui sont constantes dans le temps.
 
-** 6.2. Endogénéité potentielle de l'offre ferroviaire
+** Endogénéité potentielle de l'offre ferroviaire
 
 L'offre ferroviaire n'est pas attribuée aléatoirement. Les opérateurs et autorités organisatrices adaptent en partie la desserte aux besoins des territoires et à la fréquentation attendue.
 
 Une causalité inverse est donc possible : une forte demande de transport collectif peut contribuer à justifier une offre ferroviaire plus importante.
 
-** 6.3. Mesure des déplacements
+** Mesure des déplacements
 
 La variable dépendante concerne le mode principal déclaré pour les déplacements domicile-travail. Elle ne mesure ni l'intermodalité ni la multimodalité, et ne couvre pas les autres motifs de déplacement.
 
 Elle ne constitue donc pas une mesure exhaustive de l'utilisation automobile.
 
-** 6.4. Mesure de l'offre
+** Mesure de l'offre
 
 L'indicateur Géofer repose sur une journée type calculée à partir des circulations de semaine entre septembre et octobre. Il constitue une mesure pertinente de l'intensité de service, mais ne décrit pas directement :
 
@@ -422,12 +467,13 @@ L'indicateur Géofer repose sur une journée type calculée à partir des circul
 
 Deux communes ayant le même nombre d'arrêts peuvent donc disposer d'une accessibilité ferroviaire différente.
 
-* 7. Perspectives
+* Perspectives
 
 Une extension naturelle consiste à exploiter la profondeur temporelle de Géofer, qui fournit des données de desserte à partir de 2016.
 
 Une approche longitudinale permettrait de comparer chaque commune à elle-même dans le temps. Un modèle à effets fixes communaux pourrait alors prendre la forme :
 
+#+begin_export latex
 \[
 Y_{it}
 =
@@ -441,8 +487,9 @@ Y_{it}
 +
 \varepsilon_{it}
 \]
+#+end_export
 
-où \(\alpha_i\) représente les caractéristiques invariantes de chaque commune et \(\lambda_t\) les effets communs à chaque année.
+où $\alpha_i$ représente les caractéristiques invariantes de chaque commune et $\lambda_t$ les effets communs à chaque année.
 
 Une telle approche permettrait de neutraliser les caractéristiques communales invariantes dans le temps et d'utiliser des méthodes d'inférence adaptées aux données de panel [cite:@arellano1987robust]. Elle permettrait de tester une question plus proche de l'identification causale :
 
@@ -452,7 +499,7 @@ Lorsque l'offre ferroviaire d'une commune augmente, sa part modale automobile é
 
 L'étude pourrait également être complétée par une modélisation explicitement spatiale [cite:@anselin1988spatial] et par des indicateurs plus riches d'accessibilité ferroviaire.
 
-* 8. Conclusion
+* Conclusion
 
 Cette étude met en évidence une association statistiquement robuste entre l'intensité de l'offre ferroviaire et la part modale automobile dans les communes françaises desservies par le rail en 2022.
 
@@ -464,7 +511,7 @@ Ces résultats soutiennent l'hypothèse selon laquelle la dépendance automobile
 
 La prochaine étape consiste à exploiter la dimension temporelle des données afin d'étudier les variations de desserte au sein d'une même commune.
 
-* 9. Reproductibilité
+* Reproductibilité
 
 Le code source, les scripts de préparation des données, les modèles
 statistiques, les figures et le manuscrit sont disponibles dans le dépôt
@@ -487,10 +534,10 @@ Les principaux scripts sont :
 
 #+begin_src text
 src/mobility_dependence/
-├── prepare.py
-├── territorial_controls.py
-├── analyze.py
-└── regression.py
+|-- prepare.py
+|-- territorial_controls.py
+|-- analyze.py
+`-- regression.py
 #+end_src
 
 
@@ -500,10 +547,10 @@ Des jeux de données complémentaires ont également été mobilisés pour des a
   - ID data.gouv.fr : =69b987fe289c75351a937a1c=
   - Millésime utilisé : 2022
 
-- SNCF — Gares de voyageurs
+- SNCF -- Gares de voyageurs
   - ID data.gouv.fr : =65d81858179dc96581d981db=
 
-- SNCF — Fréquentation en gares
+- SNCF -- Fréquentation en gares
   - ID data.gouv.fr : =5959364ba3a7291dcf9c8295=
 
 Le jeu relatif à la pauvreté (=69b98967c2b58654a828f944=) a été exploré mais n'a pas été retenu dans le modèle principal en raison de sa couverture plus limitée.
@@ -512,19 +559,21 @@ Les résultats détaillés des modèles sont écrits dans :
 
 #+begin_src text
 reports/
-├── regression_station.txt
-├── regression_rail_supply.txt
-├── regression_rail_supply_cluster.txt
-└── rail_supply_quartiles.csv
+|-- regression_station.txt
+|-- regression_rail_supply.txt
+|-- regression_rail_supply_cluster.txt
+`-- rail_supply_quartiles.csv
 #+end_src
 
 Les contrôles de qualité du code comprennent Ruff, mypy et les tests Python du projet. Les identifiants data.gouv.fr indiqués dans la section 2 permettent de retrouver sans ambiguïté les jeux de données sources utilisés pour reconstruire le fichier analytique.
 
-* 10. Références
 
-#+print_bibliography:
+#+print_bibliography: :title Références
 
-* Annexe A. Résultats principaux
+#+begin_export latex
+\appendix
+#+end_export
+* Résultats principaux
 
 | Modèle | N | R2 | Coefficient rail | Erreur-type | IC95 % |
 |--------+---+----+------------------+-------------+--------|
@@ -533,7 +582,7 @@ Les contrôles de qualité du code comprennent Ruff, mypy et les tests Python du
 | Contrôle AAV | 2 144 | 0,519 | -1,787 | 0,268 | [-2,312 ; -1,262] |
 | Contrôle AAV, cluster département | 2 144 | 0,519 | -1,787 | 0,479 | [-2,725 ; -0,849] |
 
-* Annexe B. Quartiles de desserte
+* Quartiles de desserte
 
 Dans le modèle ajusté, avec Q1 comme référence :
 

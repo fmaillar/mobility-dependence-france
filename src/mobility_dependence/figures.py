@@ -86,6 +86,8 @@ def rail_supply_distribution(served: pd.DataFrame) -> None:
         title="Distribution de l'offre ferroviaire en 2022",
     )
     fig.tight_layout()
+    ax.set_axisbelow(True)
+    ax.grid(True, which="major", axis="both", alpha=0.3, linewidth=0.5)
     save_figure(fig, "rail_supply_distribution")
 
 
@@ -136,6 +138,8 @@ def adjusted_quartiles(served: pd.DataFrame) -> None:
         ylabel="Écart ajusté de part automobile (points)",
         title="Part automobile ajustée selon le niveau de desserte",
     )
+    ax.set_axisbelow(True)
+    ax.grid(True, which="major", axis="both", alpha=0.3, linewidth=0.5)
     fig.tight_layout()
     save_figure(fig, "rail_supply_quartiles_adjusted")
 
@@ -170,7 +174,7 @@ def adjusted_rail_effect(served: pd.DataFrame) -> None:
         stops,
         prediction["mean_ci_lower"],
         prediction["mean_ci_upper"],
-        alpha=0.2,
+        alpha=0.3,
     )
     ax.set_xscale("log")
     ax.set(
@@ -178,6 +182,8 @@ def adjusted_rail_effect(served: pd.DataFrame) -> None:
         ylabel="Part automobile prédite (%)",
         title="Association ajustée entre desserte ferroviaire et part automobile",
     )
+    ax.set_axisbelow(True)
+    ax.grid(True, which="major", axis="both", alpha=0.3, linewidth=0.5)
     fig.tight_layout()
     save_figure(fig, "adjusted_rail_effect")
 
@@ -257,6 +263,8 @@ def robustness_coefficients(served: pd.DataFrame) -> None:
         xlabel="Coefficient de log(1 + arrêts ferroviaires), IC95 %",
         title="Robustesse de l'association entre offre ferroviaire et part automobile",
     )
+    ax.set_axisbelow(True)
+    ax.grid(True, which="major", axis="both", alpha=0.3, linewidth=0.5)
     fig.tight_layout()
     save_figure(fig, "robustness_coefficients")
 
