@@ -7,6 +7,7 @@
 #+LANGUAGE: fr
 #+OPTIONS: toc:2 num:t
 #+STARTUP: overview
+#+PROPERTY: repository https://github.com/fmaillar/mobility-dependence-france
 #+PROPERTY: header-args :eval never-export
 
 * Résumé
@@ -464,6 +465,12 @@ Ces résultats soutiennent l'hypothèse selon laquelle la dépendance automobile
 La prochaine étape consiste à exploiter la dimension temporelle des données afin d'étudier les variations de desserte au sein d'une même commune.
 
 * 9. Reproductibilité
+
+Le code source, les scripts de préparation des données, les modèles
+statistiques, les figures et le manuscrit sont disponibles dans le dépôt
+GitHub du projet :
+
+https://github.com/fmaillar/mobility-dependence-france
 
 L'ensemble du traitement est réalisé en Python.
 
