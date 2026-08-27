@@ -5,14 +5,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
+from matplotlib.figure import Figure
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_FILE = ROOT / "data" / "processed" / "communes_2022.csv"
 FIGURES_DIR = ROOT / "reports" / "figures"
 
 BASE = (
-    "log_density_centered + log_density_centered_sq + "
-    "z_log_population + z_median_living_standard"
+    "log_density_centered + log_density_centered_sq + z_log_population + z_median_living_standard"
 )
 BASE_DISTANCE = f"{BASE} + z_distance_car"
 
@@ -43,9 +43,7 @@ def load_data() -> pd.DataFrame:
     )
 
     df = df.loc[
-        df["density"].gt(0)
-        & df["population"].gt(0)
-        & df["median_living_standard"].gt(0)
+        df["density"].gt(0) & df["population"].gt(0) & df["median_living_standard"].gt(0)
     ].copy()
 
     df["log_density"] = np.log(df["density"])
@@ -70,7 +68,7 @@ def fit(df: pd.DataFrame, formula: str, *, cluster: bool = False) -> Any:
     return model.fit(cov_type="HC3")
 
 
-def save_figure(fig: plt.Figure, name: str) -> None:
+def save_figure(fig: Figure, name: str) -> None:
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIGURES_DIR / f"{name}.pdf", bbox_inches="tight")
     fig.savefig(FIGURES_DIR / f"{name}.png", dpi=300, bbox_inches="tight")
@@ -145,15 +143,12 @@ def adjusted_quartiles(served: pd.DataFrame) -> None:
 
 
 def adjusted_rail_effect(served: pd.DataFrame) -> None:
-    formula = (
-        f"share_car ~ {BASE} + "
-        "C(categorie_aire_attraction) + log_rail_stops_2022"
-    )
+    formula = f"share_car ~ {BASE} + C(categorie_aire_attraction) + log_rail_stops_2022"
     model = fit(served, formula)
 
     low, high = served["rail_stops_2022"].quantile([0.01, 0.99])
     stops = np.geomspace(max(1.0, low), high, 120)
-    reference_aav = sorted(served["categorie_aire_attraction"].unique())[0]
+    reference_aav = min(served["categorie_aire_attraction"].unique())
 
     grid = pd.DataFrame(
         {
@@ -208,20 +203,14 @@ def robustness_coefficients(served: pd.DataFrame) -> None:
             "Contrôle AAV",
             fit(
                 served,
-                (
-                    f"share_car ~ {BASE} + "
-                    "C(categorie_aire_attraction) + log_rail_stops_2022"
-                ),
+                (f"share_car ~ {BASE} + C(categorie_aire_attraction) + log_rail_stops_2022"),
             ),
         ),
         (
             "AAV + cluster département",
             fit(
                 served,
-                (
-                    f"share_car ~ {BASE} + "
-                    "C(categorie_aire_attraction) + log_rail_stops_2022"
-                ),
+                (f"share_car ~ {BASE} + C(categorie_aire_attraction) + log_rail_stops_2022"),
                 cluster=True,
             ),
         ),

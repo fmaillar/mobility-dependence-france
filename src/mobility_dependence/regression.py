@@ -30,10 +30,11 @@ COLUMNS = [
 
 
 def load_data() -> pd.DataFrame:
-    df = pd.read_csv(
-        DATA_FILE,
-        dtype={"code_com": "string", "dep_code": "string"}
-    )[COLUMNS].dropna().copy()
+    df = (
+        pd.read_csv(DATA_FILE, dtype={"code_com": "string", "dep_code": "string"})[COLUMNS]
+        .dropna()
+        .copy()
+    )
 
     df = df.loc[
         df["density"].gt(0) & df["population"].gt(0) & df["median_living_standard"].gt(0)
