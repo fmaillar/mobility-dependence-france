@@ -27,7 +27,7 @@ Le manuscrit complet détaille les hypothèses, les modèles, les tests de robus
 ## Manuscrit
 
 - [Lire l'article au format PDF](https://fgmmai.duckdns.org/files/mobility-dependence-france.pdf)
-- Source Org : `article_offre_ferroviaire_dependance_automobile_pdflatex_png.org`
+- Source Org : `article.org`
 - Bibliographie : `references.bib`
 
 ## Données
@@ -66,24 +66,23 @@ Les données brutes ne sont pas nécessairement versionnées dans le dépôt.
 
 ```text
 .
-|-- article_offre_ferroviaire_dependance_automobile_pdflatex_png.org
-|-- article_offre_ferroviaire_dependance_automobile_pdflatex_png.pdf
+|-- article.org
 |-- references.bib
 |-- pyproject.toml
 |-- data/
 |   |-- raw/
-|   `-- processed/
+|   \-- processed/
 |-- reports/
-|   `-- figures/
+|   \-- figures/
 |-- src/
-|   `-- mobility_dependence/
+|   \-- mobility_dependence/
 |       |-- datasets.py
 |       |-- prepare.py
 |       |-- territorial_controls.py
 |       |-- analyze.py
 |       |-- regression.py
-|       `-- figures.py
-`-- tests/
+|       \-- figures.py
+\-- tests/
 ```
 
 ## Installation
