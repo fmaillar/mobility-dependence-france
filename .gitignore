@@ -25,3 +25,6 @@ build/
 *.run.xml
 *.tex
 *-SAVE-ERROR
+# Local datasets and diagnostic output
+/data
+/mobility-dependence-france.txt
